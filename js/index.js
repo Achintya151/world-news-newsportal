@@ -14,14 +14,20 @@ const setAllMenu = async () => {
     const menu = document.getElementById('all-category');
     const uniqueArray = [];
     for (const data of category) {
-        console.log(data.category_name);
+        // console.log(data.category_name);
         if (uniqueArray.indexOf(data.category_name) === -1) {
             uniqueArray.push(data.category_name);
             const li = document.createElement('li');
-            li.innerHTML = `<a>${data.category_name}</a>`
+            li.innerHTML = `<a onClick="loadNews('${data.category_id}');">${data.category_name}</a>`
             menu.appendChild(li);
         }
 
     }
 }
 setAllMenu();
+const loadNews = async (categoryId) => {
+    const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.data);
+}
